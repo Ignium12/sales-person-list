@@ -1,20 +1,25 @@
 <!DOCTYPE html>
-<table class="table table-hover">
+<table class="table">
     <thead class="thead-dark">
         <tr>
             <th>First Name</th>
             <th>Last name</th>
             <th>E-Mail</th>
             <th>Sales Volume</th>
+            <th>Met Quota?</th>
         </tr>
     </thead>
 
     <tbody>
-        <tr *ngFor="let temp of salesPersonList">
+        <tr *ngFor="let temp of salesPersonList" [ngClass]="{'highlight': temp.salesVolume >= 6000}">
             <td>{{ temp.firstName }}</td>
             <td>{{ temp.lastName }}</td>
             <td>{{ temp.email }}</td>
-            <td>{{ temp.salesVolume }}</td>
+            <td>{{ temp.salesVolume | currency:'USD' }}</td>
+            <td>
+                <div *ngIf="temp.salesVolume >= 6000; else myElseBlock">Yes</div>
+                <ng-template #myElseBlock>No</ng-template>
+            </td>
         </tr>
     </tbody>
 
